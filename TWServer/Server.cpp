@@ -5,6 +5,7 @@ int MP_TICKRATE;
 std::string rcon_password;
 int current_clients = 0;
 
+//
 
 Server::Server(int PORT)
 {

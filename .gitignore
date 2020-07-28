@@ -1,6 +1,8 @@
 #ignore logs
 *.log
 *.svg
+*.exe
+*.txt
 **/.vs
 **/TWClient/x64/Debug/
 **/TWServer/x64/Debug/

@@ -8,6 +8,7 @@
 #include <pthread.h>
 #include <netdb.h>
 #include <unistd.h>
+#include "signal.h"
 
 int MP_TICKRATE;
 std::string rcon_password;
@@ -21,9 +22,7 @@ Server::Server(int PORT)
 	ListenSocket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
 
 	printf("[ZAINICJOWANO LINUX SOCKET]\n");
-
 	// inicjalizacja winsock
-
 
 	printf("[ZAWARTOSC PLIKU SERVER.INI]\n");
 
@@ -69,9 +68,24 @@ Server::Server(int PORT)
 	// stworzenie socketu do dolaczania na serwer
 	ListenSocket = socket(result->ai_family, result->ai_socktype, result->ai_protocol);
 
+	if (ListenSocket < 0)
+	{
+		fprintf(stderr, "[BLAD SOCKETU]: %m\n");
+		exit(0);
+	}
+
 
 	// ustawianie socketu nasluchiwania TCP
 	iResult = bind(ListenSocket, result->ai_addr, (int)result->ai_addrlen);
+
+	if (iResult < 0)
+	{
+		fprintf(stderr, "[BLAD BINDOWANIA]: %m\n");
+		close(ListenSocket);
+		exit(0);
+	}
+
+
 
 	freeaddrinfo(result);
 
@@ -79,6 +93,13 @@ Server::Server(int PORT)
 
 	//nasluchuj przyszlych polaczen
 	iResult = listen(ListenSocket, SOMAXCONN);
+
+	if (iResult < 0)
+	{
+		fprintf(stderr, "[BLAD NASLUCHIWANIA]: %m\n");
+		close(ListenSocket);
+		exit(0);
+	}
 
 	std::cout << "[SERWER NASLUCHUJE NA IP: " << ipAdr << ":" << PORT << "]";
 
@@ -221,7 +242,7 @@ bool Server::ProcessPacket(int index, PACKET packetType)
 				std::cout << "[NIE MOZNA WYSLAC WIADOMOSCI: " << message << " DO ID =" << i << "]" << std::endl;
 		}
 
-		std::cout << "[ODEBRANO PAKIET OD ID = " << index << " ]" << std::endl;
+		std::cout << "[ODEBRANO PAKIET OD ID = " << index << " ][" << message << "]" << std::endl;
 		break;
 	}
 
@@ -290,11 +311,8 @@ bool Server::ProcessPacket(int index, PACKET packetType)
 
 bool Server::CloseConnection(int index)
 {
-	if (close(Connections[index]) < 0)
-	{
-		return false;
-	}
-
+	shutdown(Connections[index], 2);
+	close(Connections[index]);
 	return true;
 }
 
@@ -339,6 +357,7 @@ void Server::Getusername(int index)
 		}
 		std::string mar = "[INFO]: pustynia.mar car.mar car2.mar car3.mar\n[LICZBA GRACZY]: " + std::to_string(current_clients + 1) + "/50";
 		serverPtr->SendBool(index, usernameSaved);
+		close(index);
 		serverPtr->SendString(index, mar);
 	} while (!usernameSaved);
 }
@@ -355,8 +374,8 @@ void Server::ClientHandler(int index)
 		if (!serverPtr->ProcessPacket(index, packetType))
 			break;
 
+		usleep(1000/MP_TICKRATE);
 	}
-
 	std::cout << "[UTRACONO POLACZENIE Z ID = " << index << "]" << std::endl;
 	current_clients--;
 	serverPtr->CloseConnection(index);

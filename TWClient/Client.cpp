@@ -135,7 +135,6 @@ void Client::ClientHandler()
 	}
 
 	//tutaj blad podczas laczenia mozna dac
-
 	std::cout << "[UTRACONO POLACZENIE Z SERWEREM]" << std::endl;
 	if (clientPtr->CloseConnection())
 	{

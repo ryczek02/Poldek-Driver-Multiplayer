@@ -1,6 +1,7 @@
 #include "Server.h"
 #include "IniReader.h"
 
+
 int MP_TICKRATE;
 std::string rcon_password;
 int current_clients = 0;
@@ -10,7 +11,6 @@ int current_clients = 0;
 Server::Server(int PORT)
 {
 	WSADATA wsaData;
-
 	ListenSocket = INVALID_SOCKET;
 
 	printf("[ZAINICJOWANO WINSOCK]\n");

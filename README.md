@@ -1,4 +1,6 @@
-![logo.png](https://i.imgur.com/fxNYG03.png)
+<p align="center">
+  <img width="512" src="https://i.imgur.com/fxNYG03.png">
+</p>
 
 Poldek Driver Multiplayer jest częścią [PolMod](https://github.com/ermaccer/PolMod) autorstwa [ermaccer](https://github.com/ermaccer/).
 

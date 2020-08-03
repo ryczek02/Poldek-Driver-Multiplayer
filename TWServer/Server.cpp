@@ -98,7 +98,7 @@ Server::Server(int PORT)
 		WSACleanup();
 		exit(0);
 	}
-	std::cout << "[SERWER NASLUCHUJE NA IP: " << ipAdr << ":" << PORT << "]";
+	std::cout << "[SERWER NASLUCHUJE NA IP: " << ipAdr << ":" << PORT << "]" << std::endl;
 
 	serverPtr = this;
 }

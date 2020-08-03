@@ -76,7 +76,6 @@ bool Client::Connect()
 
 float OutputCoords[4];
 
-
 bool Client::ProcessPacket(PACKET packetType)
 {
 

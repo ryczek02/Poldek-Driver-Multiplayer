@@ -36,6 +36,8 @@ Plikiem konfiguracyjnym dla klienta jest mp.ini, który powinień znajdować si�
 ; plik konfiguracyjny klienta Poldek Driver Multiplayer
 [player]
 nickname = sebol
+ip = 127.0.0.1
+port = 54010
 ```
 ## Znane bugi
 

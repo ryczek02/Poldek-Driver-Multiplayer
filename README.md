@@ -8,6 +8,8 @@ Poldek Driver Multiplayer jest częścią [PolMod](https://github.com/ermaccer/P
 
 Plik PDMP.sln należy otworzyć Visual Studio 2019. Do debugowania serwera Linux, polecam funkcję [Windows Subsystem for Linux](https://docs.microsoft.com/en-us/windows/wsl/install-win10) z zainstalowanym klientem [SSH](https://www.illuminiastudios.com/dev-diaries/ssh-on-windows-subsystem-for-linux/).
 
+[![FILM](https://img.youtube.com/vi/GKKQsLzqqOY/0.jpg)](https://www.youtube.com/watch?v=GKKQsLzqqOY)
+
 ## Ustawienia serwera
 
 Plikiem konfiguracyjnym dla serwera jest server.ini, który powinien znajdować się obok pliku wykonywalnego serwera. Przykładowa zawartość pliku:
